@@ -83,14 +83,14 @@ function CreateOrder() {
           </div>
         </div>
 
-        <div className="mb-5 flex gap-2 flex-col sm:flex-row sm:items-center relative">
+        <div className="mb-5 flex flex-col gap-2 relative sm:flex-row sm:items-center">
           <label
             htmlFor="Address"
             className="sm:basis-40"
           >
             Address
           </label>
-          <div className="grow">
+          <div className="grow relative">
             <input
               type="text"
               name="address"
@@ -100,13 +100,11 @@ function CreateOrder() {
               className="input w-full"
             />
             {addressStatus === 'error' && (
-              <p className="text-xs mt-2  text-red-700 bg-red-100 p-2 rounded-md ">
+              <p className="text-xs mt-2 text-red-700 bg-red-100 p-2 rounded-md">
                 {errorAddress}
               </p>
             )}
-          </div>
-          {!position.latitude && !position.longitude && (
-            <span className="absolute right-[4px] top-[3px] z-50 md:right-[5px] md:top-[5px]">
+            <span className="absolute right-[4px] top-[3px] z-50 md:right-[5px] md:top-[5px] hidden sm:block">
               <Button
                 disabled={isLoadingAddress}
                 type="small"
@@ -118,7 +116,19 @@ function CreateOrder() {
                 Locate Me
               </Button>
             </span>
-          )}
+          </div>
+          <div className="block sm:hidden">
+            <Button
+              disabled={isLoadingAddress}
+              type="small"
+              onClick={(e) => {
+                e.preventDefault();
+                dispatch(fetchAddress());
+              }}
+            >
+              Locate Me
+            </Button>
+          </div>
         </div>
 
         <div className="mb-12 flex items-center gap-5">
